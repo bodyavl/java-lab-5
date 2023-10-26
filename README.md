@@ -7,4 +7,4 @@
 
 ### Step 2
 
- - 
+ - Create test cases of application usage in [Main](src/main/java/org/lab/Main.java)
