@@ -1,7 +1,7 @@
 package org.lab;
 
-import org.lab.exeptions.InsufficientFundsException;
-import org.lab.exeptions.NegativeAmountException;
+import org.lab.exceptions.InsufficientFundsException;
+import org.lab.exceptions.NegativeAmountException;
 
 public class BankAccount {
     private int accountNumber;
@@ -14,17 +14,27 @@ public class BankAccount {
         this.balance = balance;
     }
 
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public BankAccount(int accountNumber, String accountName) {
+        this.accountNumber = accountNumber;
+        this.accountName = accountName;
+        this.balance = 0;
+    }
+
     public void deposit(double amount) {
         balance += amount;
     }
 
     public void withdraw(double amount) throws InsufficientFundsException, NegativeAmountException {
         if (amount < 0) {
-            throw new NegativeAmountException("Amount must be positive.");
+            throw new NegativeAmountException();
         }
 
         if (balance < amount) {
-            throw new InsufficientFundsException("Insufficient funds.");
+            throw new InsufficientFundsException();
         }
 
         balance -= amount;
@@ -35,7 +45,7 @@ public class BankAccount {
     }
 
     public String getAccountSummary() {
-        return "Account Number: " + accountNumber + ", Account Name: " + accountName + ", Balance: " + balance;
+        return "Account Number: " + accountNumber + "\nAccount Name: " + accountName + "\nBalance: " + balance;
     }
 }
 

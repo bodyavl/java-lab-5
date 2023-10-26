@@ -1,19 +1,59 @@
 package org.lab;
 
+import org.lab.exceptions.AccountNotFoundException;
+import org.lab.exceptions.InsufficientFundsException;
+import org.lab.exceptions.NegativeAmountException;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Bank bank = new Bank();
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        try {
+            System.out.println("Scenario 1: Attempt to withdraw a negative amount");
+            bank.createAccount("John Doe", 1000);
+            BankAccount johnAccount = bank.findAccount(1);
+            johnAccount.withdraw(-200);
+        } catch (NegativeAmountException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
+        try {
+            System.out.println("\nScenario 2: Attempt to withdraw more than the balance");
+            bank.createAccount("Jane Doe", 500);
+            BankAccount janeAccount = bank.findAccount(2);
+            janeAccount.withdraw(700);
+        } catch (InsufficientFundsException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("\nScenario 3: Attempt to find a non-existent account");
+            bank.createAccount("Jim Doe", 200);
+            bank.findAccount(4);
+        } catch (AccountNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+
+        try {
+            System.out.println("\nScenario 4: Transfer money between accounts");
+            bank.createAccount("Jim Doe", 200);
+            BankAccount jimAccount = bank.findAccount(4);
+            bank.createAccount("Jessie Doe", 300);
+            BankAccount jessieAccount = bank.findAccount(5);
+            bank.transferMoney(4, 5, 150);
+            System.out.println("New balance for Jim Doe: " + jimAccount.getBalance());
+            System.out.println("New balance for Jessie Doe: " + jessieAccount.getBalance());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
         }
     }
+
 }
