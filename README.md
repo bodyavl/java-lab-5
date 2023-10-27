@@ -7,4 +7,8 @@
 
 ### Step 2
 
- - Create test cases of application usage in [Main](src/main/java/org/lab/Main.java)
+ - Create test cases of application usage in [Main](src/main/java/org/lab/Main.java);
+
+### Step 3
+
+ - Create unit tests using JUnit.

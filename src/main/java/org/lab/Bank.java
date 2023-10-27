@@ -4,9 +4,10 @@ import org.lab.exceptions.InsufficientFundsException;
 import org.lab.exceptions.NegativeAmountException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Bank {
-    private ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
+    private ArrayList<BankAccount> accounts = new ArrayList<>();
 
     public void createAccount(String accountName, double initialDeposit) {
         int accountNumber = accounts.size() + 1;
@@ -30,6 +31,10 @@ public class Bank {
 
         fromAccount.withdraw(amount);
         toAccount.deposit(amount);
+    }
+
+    public ArrayList<BankAccount> getAccounts() {
+        return accounts;
     }
 }
 
